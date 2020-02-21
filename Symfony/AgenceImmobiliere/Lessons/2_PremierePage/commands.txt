@@ -1,0 +1,9 @@
+================================================================================
+Debug container pour voir l'ensemble des services disponibles
+================================================================================
+$ php bin/console debug:container
+
+================================================================================
+Debug Autowiring permet de debogger l'ensemble des services injecte automatiquement
+================================================================================
+$ php bin/console debug:autowiring

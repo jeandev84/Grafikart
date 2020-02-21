@@ -1,0 +1,7 @@
+INSTALLATION DU PROJET
+================================================================================
+$ composer create-project symfony/website-skeleton Project 4.1.99
+
+
+
+

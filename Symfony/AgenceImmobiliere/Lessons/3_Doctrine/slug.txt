@@ -1,0 +1,5 @@
+https://packagist.org/packages/cocur/slugify
+https://github.com/cocur/slugify
+
+Install
+$ composer require cocur/slugify

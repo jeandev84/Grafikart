@@ -1,1 +1,16 @@
 $ bin/console make:fixture
+The class name of the fixtures to create (e.g. AppFixtures):
+ > UserFixtures
+
+ created: src/DataFixtures/UserFixtures.php
+
+
+  Success!
+
+
+ Next: Open your new fixtures class and start customizing it.
+ Load your fixtures by running: php bin/console doctrine:fixtures:load
+ Docs: https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html
+
+========================================================
+$ bin/console doctrine:fixtures:load (on va vider et remplir la base de donnees)

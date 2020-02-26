@@ -1,0 +1,18 @@
+$ bin/console make:form
+
+The name of the form class (e.g. AgreeableGnomeType):
+> PropertySearchType
+
+The name of Entity or fully qualified model class name that the new form will be bound to (empty for none):
+> \App\Entity\PropertySearch
+
+created: src/Form/PropertySearchType.php
+
+
+Success!
+
+
+Next: Add fields to your form and start using it.
+Find the documentation at https://symfony.com/doc/current/forms.html
+
+==========================================================

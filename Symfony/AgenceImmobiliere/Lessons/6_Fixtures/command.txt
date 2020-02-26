@@ -1,0 +1,11 @@
+$ composer require orm-fixtures --dev
+$ bin/console make:fixtures
+
+$ bin/console doctrine:fixtures:load
+purged (toute les donnees seront effacer dans la base de donnees)
+Careful, database "agenceimmobiliere" will be purged. Do you want to continue? (yes/no) [no]:
+> no
+
+
+Qui permet de rajouter les donnees et ne pas les supprimer.
+$ bin/console doctrine:fixtures:load --append

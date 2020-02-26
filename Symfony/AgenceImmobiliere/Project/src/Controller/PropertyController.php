@@ -4,7 +4,9 @@ namespace App\Controller;
 use App\Entity\Property;
 use App\Repository\PropertyRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -41,18 +43,26 @@ class PropertyController extends AbstractController
 
     /**
      * @Route("/biens", name="property.index")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
-    */
-    public function index(): Response
+     */
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        /*
-        $property = $this->repository->findAllVisible();
-        dump($property);
-        $property[0]->setSold(true);
-        $this->em->flush();
-        */
+        # Creer une entite qui va representer notre recherche
+        # Creer un formulaire
+        # Gerer le traitement dans le controller
+
+        # Mise en place d'une pagination
+        $properties = $paginator->paginate(
+            $this->repository->findAllVisibleQuery(),
+            $request->query->getInt('page', 1),
+            12
+        );
+
         return $this->render('property/index.html.twig', [
-            'current_menu' => 'properties'
+            'current_menu' => 'properties',
+            'properties' => $properties
         ]);
     }
 
@@ -65,7 +75,6 @@ class PropertyController extends AbstractController
      */
     public function show(Property $property, string $slug): Response
     {
-
         if($property->getSlug() !== $slug)
         {
             return $this->redirectToRoute('property.show', [
@@ -138,5 +147,13 @@ class PropertyController extends AbstractController
         'current_menu' => 'properties'
         ]);
      }
+
+      public function flushSold()
+      {
+        $property = $this->repository->findAllVisible();
+        dump($property);
+        $property[0]->setSold(true);
+        $this->em->flush();
+       }
     */
 }

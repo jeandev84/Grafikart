@@ -108,7 +108,7 @@ class AdminPropertyController extends AbstractController
     {
 
         /*
-         Ajout d'un bien ( En utilisant les methodes de ralations )
+         Ajout d'un bien ( En utilisant les methodes de relations )
          $option = new Option();
          $property->addOption($option);
         */

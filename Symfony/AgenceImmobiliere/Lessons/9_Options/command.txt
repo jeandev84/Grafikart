@@ -1,0 +1,143 @@
+RELATION SHIP :
+OneToOne: Un Utilisateur peut avoir un profile
+          Un Profile peut qu'appartenir qu'a un seul utilisateur
+
+OneToMany : Une Categorie peut avoir plusieurs Articles
+ManyToOne : Pusieurs Articles appartiennent a une Categorie
+
+ManyToMany: (Exemple systeme de Tag)
+   Des Articles qui ont plusieurs Tags
+   Un Tag peut avoir plusieurs Articles
+
+Chaque Bien est lie a plusieurs Options
+Chaque Option est liee a plusieurs Biens
+$ bin/console make:entity
+
+
+ Class name of the entity to create or update (e.g. DeliciousJellybean):
+ > Option
+
+ created: src/Entity/Option.php
+ created: src/Repository/OptionRepository.php
+
+ Entity generated! Now let's add some fields!
+ You can always add more fields later manually or by re-running this command.
+
+ New property name (press <return> to stop adding fields):
+ > name
+
+ Field type (enter ? to see all types) [string]:
+ >
+
+ Field length [255]:
+ >
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ >
+
+ updated: src/Entity/Option.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ > properties
+
+ Field type (enter ? to see all types) [string]:
+ > relation
+
+ What class should this entity be related to?:
+ > Property
+
+What type of relationship is this?
+ ------------ ----------------------------------------------------------------------
+  Type         Description
+ ------------ ----------------------------------------------------------------------
+  ManyToOne    Each Option relates to (has) one Property.
+               Each Property can relate to (can have) many Option objects
+
+  OneToMany    Each Option can relate to (can have) many Property objects.
+               Each Property relates to (has) one Option
+
+  ManyToMany   Each Option can relate to (can have) many Property objects.
+               Each Property can also relate to (can also have) many Option objects
+
+  OneToOne     Each Option relates to (has) exactly one Property.
+               Each Property also relates to (has) exactly one Option.
+ ------------ ----------------------------------------------------------------------
+
+Relation type? [ManyToOne, OneToMany, ManyToMany, OneToOne]:
+> ManyToMany
+
+Do you want to add a new property to Property so that you can access/update Option objects from it - e.g. $property->getOptions()? (yes/no) [yes]:
+>
+
+A new property will also be added to the Property class so that you can access the related Option objects from it.
+
+New field name inside Property [options]:
+>
+
+ updated: src/Entity/Option.php
+ updated: src/Entity/Property.php
+
+Add another property? Enter the property name (or press <return> to stop adding fields):
+>
+
+
+
+Success!
+
+
+Next: When you're ready, create a migration with make:migration
+
+========================================================================
+Make Migration :
+$ bin/console make:migration
+
+
+Success!
+
+
+Next: Review the new migration "src/Migrations/Version20200226212530.php"
+Then: Run the migration with php bin/console doctrine:migrations:migrate
+
+==========================================================================
+$ php bin/console doctrine:migrations:migrate
+
+                    Application Migrations
+
+
+WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)y
+Migrating up to 20200226212530 from 20200226122849
+
+  ++ migrating 20200226212530
+
+     -> CREATE TABLE `option` (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE option_property (option_id INT NOT NULL, property_id INT NOT NULL, INDEX IDX_AB856D7AA7C41D6F (option_id), INDEX IDX_AB856D7A549213EC (property_id), PRIMARY KEY(option_id, property_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> ALTER TABLE option_property ADD CONSTRAINT FK_AB856D7AA7C41D6F FOREIGN KEY (option_id) REFERENCES `option` (id) ON DELETE CASCADE
+     -> ALTER TABLE option_property ADD CONSTRAINT FK_AB856D7A549213EC FOREIGN KEY (property_id) REFERENCES property (id) ON DELETE CASCADE
+
+  ++ migrated (took 401.9ms, used 32.25M memory)
+
+  ------------------------
+
+  ++ finished in 408ms
+  ++ used 32.25M memory
+  ++ 1 migrations executed
+  ++ 4 sql queries
+==========================================================
+
+MAKE CRUD:
+$ bin/console make:crud Option
+
+   created: src/Controller/OptionController.php
+   created: src/Form/OptionType.php
+   created: templates/option/_delete_form.html.twig
+   created: templates/option/_form.html.twig
+   created: templates/option/edit.html.twig
+   created: templates/option/index.html.twig
+   created: templates/option/new.html.twig
+   created: templates/option/show.html.twig
+
+
+    Success!
+
+
+   Next: Check your new CRUD by going to /option/

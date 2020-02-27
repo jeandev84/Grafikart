@@ -1,0 +1,87 @@
+$ bin/console doctrine:migrations:status
+
+
+ == Configuration
+
+    >> Name:                                               Application Migrations
+    >> Database Driver:                                    pdo_mysql
+    >> Database Host:                                      127.0.0.1
+    >> Database Name:                                      agenceimmobiliere
+    >> Configuration Source:                               manually configured
+    >> Version Table Name:                                 migration_versions
+    >> Version Column Name:                                version
+    >> Migrations Namespace:                               DoctrineMigrations
+    >> Migrations Directory:                               /var/www/Grafikart/Symfony/AgenceImmobiliere/Project/src/Migrations
+    >> Previous Version:                                   2020-02-26 12:28:49 (20200226122849)
+    >> Current Version:                                    2020-02-26 21:25:30 (20200226212530)
+    >> Next Version:                                       Already at latest version
+    >> Latest Version:                                     2020-02-26 21:25:30 (20200226212530)
+    >> Executed Migrations:                                4
+    >> Executed Unavailable Migrations:                    0
+    >> Available Migrations:                               4
+    >> New Migrations:                                     0
+
+============================================================================
+Migrer sur une version specifique :
+$ bin/console doctrine:migrations:migrate 20200226122849
+
+
+                    Application Migrations
+
+
+WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)y
+Migrating down to 20200226122849 from 20200226212530
+
+  -- reverting 20200226212530
+
+     -> ALTER TABLE option_property DROP FOREIGN KEY FK_AB856D7AA7C41D6F
+     -> DROP TABLE `option`
+     -> DROP TABLE option_property
+
+  -- reverted (took 128.7ms, used 14M memory)
+
+  ------------------------
+
+  ++ finished in 135.5ms
+  ++ used 14M memory
+  ++ 1 migrations executed
+  ++ 3 sql queries
+
+========================================================================
+Creer ensuite une nouvelle migration
+$ bin/console make:migration
+
+Success!
+
+
+Next: Review the new migration "src/Migrations/Version20200226223506.php"
+Then: Run the migration with php bin/console doctrine:migrations:migrate
+
+=========================================================================
+Ensuite on migre:
+$ bin/console doctrine:migrations:migrate
+
+
+                    Application Migrations
+
+
+WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)y
+Migrating up to 20200226223506 from 20200226122849
+
+  ++ migrating 20200226223506
+
+     -> CREATE TABLE `option` (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> CREATE TABLE property_option (property_id INT NOT NULL, option_id INT NOT NULL, INDEX IDX_24F16FCC549213EC (property_id), INDEX IDX_24F16FCCA7C41D6F (option_id), PRIMARY KEY(property_id, option_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+     -> ALTER TABLE property_option ADD CONSTRAINT FK_24F16FCC549213EC FOREIGN KEY (property_id) REFERENCES property (id) ON DELETE CASCADE
+     -> ALTER TABLE property_option ADD CONSTRAINT FK_24F16FCCA7C41D6F FOREIGN KEY (option_id) REFERENCES `option` (id) ON DELETE CASCADE
+
+  ++ migrated (took 154ms, used 14M memory)
+
+  ------------------------
+
+  ++ finished in 157.3ms
+  ++ used 14M memory
+  ++ 1 migrations executed
+  ++ 4 sql queries
+
+=============================================================================

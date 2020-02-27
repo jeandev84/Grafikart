@@ -1,7 +1,8 @@
 <?php
 namespace App\Form;
 
-#use App\Entity\Option;
+
+use App\Entity\Option;
 use App\Entity\Property;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -36,13 +37,11 @@ class PropertyType extends AbstractType
                 'choices' =>  $this->getChoices()
             ])
             // ajout de champ select afin d'associe une 'Property' a une 'Option'
-            /*
             ->add('options', EntityType::class, [
-                'class' => '', //Option::class, // class cible
+                'class' => Option::class, // class cible
                 'choice_label' => 'name', // Propriete utilise pour le label ( on utilise le 'name')
                 'multiple' => true, // On autorise plusieurs options (Option)zz a etre selectionnes
             ])
-            */
             ->add('city', null, [ // Ville
                 'label' => 'Ville'  // redefinir le label
             ])

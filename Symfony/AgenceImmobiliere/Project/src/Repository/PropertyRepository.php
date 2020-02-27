@@ -53,6 +53,22 @@ class PropertyRepository extends ServiceEntityRepository
                            ->setParameter('minsurface', $minsurface);
         }
 
+        # Si le count est superieur a zero c.a.d on a des options
+        if($search->getOptions()->count() > 0)
+        {
+            $k = 0;
+
+            # pour chacune de ces options
+            foreach($search->getOptions() as $option)
+            {
+                $k++;
+                # j'ajoute a ma requette, parametre :option soit un membre de p.options
+                # Doctrine MEMBER OF
+                $query = $query->andWhere(":option$k MEMBER OF p.options")
+                               ->setParameter("option$k", $option);
+            }
+        }
+
         # Return Query
         return $query->getQuery();
     }

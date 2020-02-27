@@ -1,0 +1,123 @@
+INSTALL SYMFONY WEB
+=========================================================
+$ composer create-project symfony/website-skeleton:^4.4 Demo
+$ composer require server
+
+=========================================================
+INSTALL FOSUerBundle
+$ composer require friendsofsymfony/user-bundle
+
+========================================================
+.env
+DATABASE_URL=mysql://root:@127.0.0.1:3306/fosuser
+
+=========================================================
+Create entity User :
+<?php
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+
+
+/**
+ * Class User
+ * @package App\Entity
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="`user`")
+ */
+class User extends BaseUser
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+   */
+    protected $id;
+    // Note: The getter is not required because the parent class User
+    // already has the getId() method defined.
+}
+
+=========================================================
+Add in file ./config/packages/framework.yaml
+framework:
+    templating:
+        engines: ['twig', 'php']
+
+============================================================
+Add Routes :
+./config/routes.yaml
+fos_user:
+   resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+=============================================================
+Serurity :
+./config/packages/security.yaml
+
+security:
+    encoders:
+        App\Entity\User: bcrypt
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            logout: ~
+            logout_on_user_change: true
+            form_login:
+                csrf_token_generator: security.csrf.token_manager
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+
+===========================================================
+Create a New File :
+./config/packages/fos_user.yaml
+And Add this :
+
+fos_user:
+  db_driver: orm
+  firewall_name: main
+  user_class: App\Entity\User
+  from_email:
+     address: "hello@youmail.com"
+     sender_name: "Sender Name"
+
+
+
+============================================================
+CREATE DATABASE
+$ php bin/console doctrine:database:create
+Created database `fosuser` for connection named default
+
+=============================================================
+Migrate
+$ php bin/console doctrine:schema:update --force
+ Updating database schema...
+
+     1 query was executed
+
+
+[OK] Database schema updated successfully!
+
+==============================================================
+Lance in the browser
+1- http://localhost:8000/register
+2- http://localhost:8000/login
+3-

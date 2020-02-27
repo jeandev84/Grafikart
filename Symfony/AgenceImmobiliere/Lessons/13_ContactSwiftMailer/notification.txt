@@ -1,0 +1,3 @@
+Install Swift Mailer
+
+$ composer require symfony/swiftmailer-bundle

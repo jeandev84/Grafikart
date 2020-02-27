@@ -1,0 +1,25 @@
+WEBPACK
+================================================
+$ composer require symfony/webpack-encore-bundle
+
+Will be generated next files :
+assets/
+config/packages/assets.yaml
+config/packages/prod/webpack_encore.yaml
+config/packages/test/webpack_encore.yaml
+config/packages/webpack_encore.yaml
+package.json
+webpack.config.js
+
+# $ yarn / npm install
+$ npm install (Sur ma machine npm est mieux) or yarn
+$ npm run dev-server (Lancer un serveur de developpement par webpack)
+/ or $ npm run build
+
+/public/build/manifest.json (comme composer.json)
+
+$ npm install select2
+
+a chaque changement on lance
+$ npm run dev-server ou  $ npm run build
+$ npm install babel-preset-es2017

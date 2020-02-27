@@ -27,6 +27,12 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    # on inscrit un nouveau tag de doctrine.event_subscriber
+    App\Listener\ImageCacheSubscriber:
+        tags:
+          - {name: 'doctrine.event_subscriber'}
+
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
@@ -36,3 +42,4 @@ services:
         # tags: ['controller.service_arguments']
         # arguments:
             # $twig: '@twig'
+

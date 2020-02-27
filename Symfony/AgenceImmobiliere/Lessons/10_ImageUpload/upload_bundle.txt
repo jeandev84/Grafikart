@@ -1,0 +1,67 @@
+Voir les bundles supportes par Symfony
+https://flex.symfony.com
+======================================================
+Vich Uploader Bundle
+Packagist
+Upload Images :
+https://packagist.org/packages/vich/uploader-bundle
+https://github.com/dustin10/VichUploaderBundle
+
+$ composer require vich/uploader-bundle
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+Restricting packages listed in "symfony/symfony" to "4.1.*"
+
+Prefetching 3 packages 🎶 💨
+  - Downloading (100%)
+
+Package operations: 4 installs, 0 updates, 0 removals
+  - Installing symfony/templating (v4.1.12): Loading from cache
+  - Installing jms/metadata (2.1.0): Loading from cache
+  - Installing behat/transliterator (v1.3.0): Loading from cache
+  - Installing vich/uploader-bundle (1.11.0): Loading from cache
+Package zendframework/zend-code is abandoned, you should avoid using it. Use laminas/laminas-code instead.
+Package zendframework/zend-eventmanager is abandoned, you should avoid using it. Use laminas/laminas-eventmanager instead.
+Writing lock file
+Generating autoload files
+ocramius/package-versions:  Generating version class...
+ocramius/package-versions: ...done generating version class
+Symfony operations: 1 recipe (fb2cded0301a32eac241de4415c39f72)
+  -  WARNING  vich/uploader-bundle (>=1.5): From github.com/symfony/recipes-contrib:master
+    The recipe for this package comes from the "contrib" repository, which is open to community contributions.
+    Review the recipe at https://github.com/symfony/recipes-contrib/tree/master/vich/uploader-bundle/1.5
+
+    Do you want to execute this recipe?
+    [y] Yes
+    [n] No
+    [a] Yes for all packages, only for the current installation session
+    [p] Yes permanently, never ask again for this project
+    (defaults to n): y
+  - Configuring vich/uploader-bundle (>=1.5): From github.com/symfony/recipes-contrib:master
+Executing script cache:clear [OK]
+Executing script assets:install public [OK]
+
+Some files may have been created or updated to configure your new packages.
+Please review, edit and commit them: these files are yours.
+
+====================================================================
+config/packages/vich_uploader.yaml
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        property_image:
+            uri_prefix: /images/properties
+            upload_destination: '%kernel.project_dir%/images/properties'
+
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products (Dossier ou on envoyera notre image)
+    #        upload_destination: '%kernel.project_dir%/public/images/products'
+
+====================================================================
+https://github.com/dustin10/VichUploaderBundle/blob/master/docs/usage.md
+
+====================================================================
+$ php bin/console make:migration
+$ php bin/console doctrine:migrations:migrate
